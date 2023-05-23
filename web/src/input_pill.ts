@@ -17,6 +17,7 @@ export type InputPillItem<T> = {
     img_src?: string;
     deactivated?: boolean;
     status_emoji_info?: EmojiRenderingDetails & {emoji_alt_code: boolean}; // TODO: Move this in user_status.js
+    is_bot?: boolean;
 } & T;
 
 type InputPillCreateOptions<T> = {
@@ -55,6 +56,7 @@ type InputPillRenderingDetails = {
     deactivated?: boolean;
     has_status?: boolean;
     status_emoji_info?: EmojiRenderingDetails & {emoji_alt_code: boolean};
+    is_bot?: boolean;
 };
 
 // These are the functions that are exposed to other modules.
@@ -156,6 +158,7 @@ export function create<T>(opts: InputPillCreateOptions<T>): InputPillContainer<T
                 display_value: item.display_value,
                 has_image,
                 deactivated: item.deactivated,
+                is_bot: item.is_bot,
             };
 
             if (has_image) {

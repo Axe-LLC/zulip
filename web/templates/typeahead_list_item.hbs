@@ -10,7 +10,11 @@
     <span class="{{user_circle_class}} user_circle"></span>
     {{/if}}
     {{#if has_image}}
-    <img class="typeahead-image" src="{{ img_src }}" />
+        {{#if is_bot}}
+            <img class="typeahead-image" src="../images/icons/bot-icon.png" alt="" class="no-drag"/>
+        {{else}}
+            <img class="typeahead-image" src="{{ img_src }}" />
+        {{/if}}
     {{else}}
     <span class='typeahead-image fa fa-bullhorn no-presence-circle'></span>
     {{/if}}
