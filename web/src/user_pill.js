@@ -53,6 +53,7 @@ export function create_item_from_email(email, current_items) {
         img_src: avatar_url,
         deactivated: false,
         status_emoji_info,
+        is_bot: user.is_bot,
     };
 
     // We pass deactivated true for a deactivated user
@@ -81,6 +82,7 @@ export function append_person(opts) {
         email: person.email,
         img_src: avatar_url,
         status_emoji_info,
+        is_bot: person.is_bot,
     };
 
     pill_widget.appendValidatedData(pill_data);

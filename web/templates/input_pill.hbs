@@ -1,6 +1,10 @@
 <div class='pill {{#if deactivated}} deactivated-pill {{/if}}' tabindex=0>
     {{#if has_image}}
-    <img class="pill-image" src="{{img_src}}" />
+        {{#if is_bot}}
+            <img class="pill-image" src="../images/icons/bot-icon.png" alt="" class="no-drag"/>
+        {{else}}
+            <img class="pill-image" src="{{img_src}}" />
+        {{/if}}
     {{/if}}
     <span class="pill-value">{{ display_value }}
         {{~#if has_status~}}

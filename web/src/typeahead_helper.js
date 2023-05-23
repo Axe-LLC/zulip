@@ -93,6 +93,7 @@ export function render_person(person) {
         user_circle_class,
         is_person: true,
         status_emoji_info,
+        is_bot: person.is_bot,
     };
 
     typeahead_arguments.secondary = person.delivery_email;
