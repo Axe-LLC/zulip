@@ -85,15 +85,15 @@ export function update_charged_amount(prices, schedule) {
 
 export function update_discount_details(organization_type) {
     let discount_notice =
-        "Your organization may be eligible for a discount on Zulip Cloud Standard. Organizations whose members are not employees are generally eligible.";
+        "Your organization may be eligible for a discount on Practice Chat Cloud Standard. Organizations whose members are not employees are generally eligible.";
     const discount_details = {
-        opensource: "Zulip Cloud Standard is free for open-source projects.",
-        research: "Zulip Cloud Standard is free for academic research.",
-        nonprofit: "Zulip Cloud Standard is discounted 85%+ for registered non-profits.",
-        event: "Zulip Cloud Standard is free for academic conferences and most non-profit events.",
-        education: "Zulip Cloud Standard is discounted 85% for education.",
+        opensource: "Practice Chat Cloud Standard is free for open-source projects.",
+        research: "Practice Chat Cloud Standard is free for academic research.",
+        nonprofit: "Practice Chat Cloud Standard is discounted 85%+ for registered non-profits.",
+        event: "Practice Chat Cloud Standard is free for academic conferences and most non-profit events.",
+        education: "Practice Chat Cloud Standard is discounted 85% for education.",
         education_nonprofit:
-            "Zulip Cloud Standard is discounted 90% for education non-profits with online purchase.",
+            "Practice Chat Cloud Standard is discounted 90% for education non-profits with online purchase.",
     };
     if (discount_details[organization_type]) {
         discount_notice = discount_details[organization_type];

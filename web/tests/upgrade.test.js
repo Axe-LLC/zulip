@@ -140,32 +140,32 @@ run_test("initialize", ({override_rewire}) => {
     helpers.update_discount_details("opensource");
     assert.equal(
         $("#sponsorship-discount-details").text(),
-        "Zulip Cloud Standard is free for open-source projects.",
+        "Practice Chat Cloud Standard is free for open-source projects.",
     );
     helpers.update_discount_details("research");
     assert.equal(
         $("#sponsorship-discount-details").text(),
-        "Zulip Cloud Standard is free for academic research.",
+        "Practice Chat Cloud Standard is free for academic research.",
     );
     helpers.update_discount_details("event");
     assert.equal(
         $("#sponsorship-discount-details").text(),
-        "Zulip Cloud Standard is free for academic conferences and most non-profit events.",
+        "Practice Chat Cloud Standard is free for academic conferences and most non-profit events.",
     );
     helpers.update_discount_details("education");
     assert.equal(
         $("#sponsorship-discount-details").text(),
-        "Zulip Cloud Standard is discounted 85% for education.",
+        "Practice Chat Cloud Standard is discounted 85% for education.",
     );
     helpers.update_discount_details("nonprofit");
     assert.equal(
         $("#sponsorship-discount-details").text(),
-        "Zulip Cloud Standard is discounted 85%+ for registered non-profits.",
+        "Practice Chat Cloud Standard is discounted 85%+ for registered non-profits.",
     );
     helpers.update_discount_details("other");
     assert.equal(
         $("#sponsorship-discount-details").text(),
-        "Your organization may be eligible for a discount on Zulip Cloud Standard. Organizations whose members are not employees are generally eligible.",
+        "Your organization may be eligible for a discount on Practice Chat Cloud Standard. Organizations whose members are not employees are generally eligible.",
     );
 });
 
