@@ -1181,9 +1181,9 @@ if PRODUCTION:
 PROFILE_ALL_REQUESTS = False
 
 CROSS_REALM_BOT_EMAILS = {
-    "notification-bot@zulip.com",
-    "welcome-bot@zulip.com",
-    "emailgateway@zulip.com",
+    "notification-bot@practicechat.com",
+    "welcome-bot@practicechat.com",
+    "emailgateway@practicechat.com",
 }
 
 TWO_FACTOR_PATCH_ADMIN = False
