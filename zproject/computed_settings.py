@@ -512,7 +512,7 @@ if PRODUCTION:
         },
     ]
 
-INTERNAL_BOT_DOMAIN = "zulip.com"
+INTERNAL_BOT_DOMAIN = "practicechat.com"
 
 ########################################################################
 # CAMO HTTPS CACHE CONFIGURATION
