@@ -2147,6 +2147,11 @@ div.focused_table {
     color: inherit;
 }
 
+.nav .dropdown-menu a:hover {
+    background-color: #007AFF;
+    background-image: none;
+}
+
 .typeahead.dropdown-menu {
     .active {
         color: hsl(0deg 0% 100%);
