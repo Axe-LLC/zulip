@@ -96,7 +96,15 @@ def send_initial_direct_message(user: UserProfile) -> None:
 
     clinical_bot_content = "".join(
         [
-            _("Hello, and welcome to Clinical Bot!") + "👋" + " ",
+            "🤖" + _("Clinical Bot Welcomes You!") + "🤖" + " ",
+            _("Greetings! I'm your Clinical Bot, equipped with a wealth of knowledge sourced from a vast array of dental textbooks, ADA journals, and various reputable resources. I'm here to assist you with any questions you may have regarding dental procedures, protocols, and patient care. It's a pleasure to meet you!") + "\n",
+            _("If you're seeking guidance on specific dental scenarios or need information about best practices in dentistry, feel free to ask. With my extensive training, I can provide you with accurate and reliable information. Here are a few examples of questions you can ask me:"),
+            _("\"Do I need to pre-medicate a patient who had a joint replaced?\""),
+            _("\"What's the recommended fluoride concentration for pediatric patients?\""),
+            _("\"What are the steps for performing a root canal treatment?\""),
+            _("Please remember that while I strive to offer comprehensive and up-to-date information, I am an AI language model and not a substitute for professional dental advice. For complex cases or personalized treatment plans, it's always advisable to consult a qualified dentist or dental professional.") + "\n",
+            _("Rest assured that I'm here to support you in understanding dental procedures, interpreting guidelines, and exploring the latest research. Together, we can ensure the delivery of exceptional dental care to our patients.") + "\n",
+            _("Welcome to Practice Chat! If you have any questions or need assistance, don't hesitate to ask. Just type in your queries, and I'll provide you with the information you need. Let's work together to promote dental health and provide the highest standard of care!") + "🦷🌟" + "\n",
         ]
     )
 
@@ -111,7 +119,15 @@ def send_initial_direct_message(user: UserProfile) -> None:
 
     office_bot_content = "".join(
         [
-            _("Hello, and welcome to Office Bot!") + "👋" + " ",
+            "🤖" + _("Office Bot Welcomes You!") + "🤖" + " ",
+            _("Hey there! I'm your Office Bot, here to assist you with all your questions regarding office procedures and protocols. It's a pleasure to meet you! Whether you're new to the office or just need a refresher, I'm here to provide you with the information you need.") + "\n",
+            _("If you have any inquiries about our protocols or need guidance on specific office procedures, feel free to ask. I'm well-versed in a wide range of topics and can help you navigate through various situations. For instance, you can ask me questions like:"),
+            _("\"What is our procedure for dealing with a difficult patient?\""),
+            _("\"How should I handle a scheduling conflict?\""),
+            _("\"What are the protocols for maintaining patient privacy and confidentiality?\""),
+            _("No matter what your question is, I'll do my best to provide you with accurate and up-to-date information. If there's something I can't assist with, I'll let you know and direct you to the appropriate resources or personnel.") + "\n",
+            _("Remember, I'm here to support you and ensure a smooth experience in our office. Just type your questions, and I'll be ready to lend a virtual hand. Let's get started and make your time here as efficient and productive as possible!") + "\n",
+            _("Once again, welcome to Practice Chat, and don't hesitate to reach out whenever you need assistance.") + "🦷🌟" + "\n",
         ]
     )
 
