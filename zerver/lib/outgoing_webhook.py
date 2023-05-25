@@ -78,6 +78,7 @@ class GenericOutgoingWebhookService(OutgoingWebhookServiceInterface):
             "bot_full_name": self.user_profile.full_name,
             "token": self.token,
             "trigger": event["trigger"],
+            "organization_id": self.user_profile.realm_id,
         }
 
         return self.session.post(base_url, json=request_data)
