@@ -69,21 +69,14 @@ def send_initial_direct_message(user: UserProfile) -> None:
 
         content = "".join(
             [
-                _("Hello, and welcome to Practice Chat!") + "👋" + " ",
-                _("This is a direct message from me, Welcome Bot.") + "\n\n",
-                "{getting_started_text}",
-                _(
-                    "I can also help you get set up! Just click anywhere on this message or press `r` to reply."
-                )
-                + "\n\n",
-                _("Here are a few messages I understand:") + " ",
-                bot_commands(),
+                "🤖" + _("Welcome to Practice Chat!") + "🤖" + "\n",
+                _("I'm your friendly Welcome Bot, here to assist you as you embark on your journey with us. We're thrilled to have you as a new user and look forward to supporting you every step of the way.") + "\n\n",
+                _("At Practice Chat, we offer a range of powerful features designed to streamline your practice and enhance communication. Allow me to introduce you to two helpful bots that will make your experience even more efficient:") + "\n",
+                _("Meet our Office Bot: It specializes in answering questions related to office procedures and protocols. For example, you can ask, \"What is our procedure for dealing with a difficult patient?\" or \"How do we handle insurance claims?\" The Office Bot is here to provide you with valuable insights and guidance.") + "\n",
+                _("Introducing our Clinical Bot: It's trained to answer specific clinical questions and provide expert knowledge. For instance, you can ask, \"Do I need to pre-medicate a patient who had a joint replaced?\" or \"What's the normal HbA1c range for a diabetic patient?\" The Clinical Bot is equipped with vast information from dental textbooks, ADA journals, and more.") + "\n",
+                _("If you have any queries, need guidance, or simply want to say hello, just type your message, and I'll be here to assist you. Welcome once again, and let's make your experience with Practice Chat exceptional!") + "🌟" + "\n",
             ]
         )
-
-    content = content.format(
-        getting_started_text=getting_started_string
-    )
 
     internal_send_private_message(
         get_system_bot(settings.WELCOME_BOT, user.realm_id),
