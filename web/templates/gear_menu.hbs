@@ -10,16 +10,16 @@
         <ul class="dropdown-menu" role="menu" aria-labelledby="settings-dropdown">
             <li class="org-info org-name">{{realm_name}}</li>
             <li class="org-info org-url">{{realm_url}}</li>
-            {{#if is_self_hosted }}
-                <li class="org-info org-version">
-                    <a href="#about-zulip" role="menuitem">{{version_display_string}}</a>
-                </li>
-                {{#if server_needs_upgrade }}
-                <li class="org-info org-upgrade small-font-size">
-                    <a href="https://zulip.readthedocs.io/en/stable/production/upgrade-or-modify.html" target="_blank" rel="noopener noreferrer" role="menuitem">{{t 'Upgrade to the latest release' }}</a>
-                </li>
-                {{/if}}
-            {{/if}}
+{{!--             {{#if is_self_hosted }} --}}
+{{!--                 <li class="org-info org-version"> --}}
+{{!--                     <a href="#about-zulip" role="menuitem">{{version_display_string}}</a> --}}
+{{!--                 </li> --}}
+{{!--                 {{#if server_needs_upgrade }} --}}
+{{!--                 <li class="org-info org-upgrade small-font-size"> --}}
+{{!--                     <a href="https://zulip.readthedocs.io/en/stable/production/upgrade-or-modify.html" target="_blank" rel="noopener noreferrer" role="menuitem">{{t 'Upgrade to the latest release' }}</a> --}}
+{{!--                 </li> --}}
+{{!--                 {{/if}} --}}
+{{!--             {{/if}} --}}
             {{#if (and is_plan_limited is_owner) }}
             <li class="org-info org-upgrade small-font-size">
                 <a href="/upgrade/" target="_blank" rel="noopener noreferrer" role="menuitem">{{t "Upgrade to {standard_plan_name}" }}</a>
