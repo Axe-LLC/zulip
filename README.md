@@ -1,83 +1,126 @@
-# Zulip overview
+# Practice Chat overview
 
-[Zulip](https://zulip.com) is an open-source team collaboration tool with unique
-[topic-based threading][why-zulip] that combines the best of email and chat to
-make remote work productive and delightful. Fortune 500 companies, [leading open
-source projects][rust-case-study], and thousands of other organizations use
-Zulip every day. Zulip is the only [modern team chat app][features] that is
-designed for both live and asynchronous conversations.
+[Practice Chat](https://practicechat.com) is a team collaboration tool that combines the best of email and chat to
+make remote work productive and delightful.
 
-Zulip is built by a distributed community of developers from all around the
-world, with 74+ people who have each contributed 100+ commits. With
-over 1000 contributors merging over 500 commits a month, Zulip is the
-largest and fastest growing open source team chat project.
+Come find us on the [developer team website](https://axe.software/about-us/)!
 
-Come find us on the [development community chat](https://zulip.com/development-community/)!
+## Practice Chat Deployment to Production
 
-[![GitHub Actions build status](https://github.com/zulip/zulip/actions/workflows/zulip-ci.yml/badge.svg)](https://github.com/zulip/zulip/actions/workflows/zulip-ci.yml?query=branch%3Amain)
-[![coverage status](https://img.shields.io/codecov/c/github/zulip/zulip/main.svg)](https://codecov.io/gh/zulip/zulip)
-[![Mypy coverage](https://img.shields.io/badge/mypy-100%25-green.svg)][mypy-coverage]
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v1.json)](https://github.com/charliermarsh/ruff)
-[![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![GitHub release](https://img.shields.io/github/release/zulip/zulip.svg)](https://github.com/zulip/zulip/releases/latest)
-[![docs](https://readthedocs.org/projects/zulip/badge/?version=latest)](https://zulip.readthedocs.io/en/latest/)
-[![Zulip chat](https://img.shields.io/badge/zulip-join_chat-brightgreen.svg)](https://chat.zulip.org)
-[![Twitter](https://img.shields.io/badge/twitter-@zulip-blue.svg?style=flat)](https://twitter.com/zulip)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/zulip)](https://github.com/sponsors/zulip)
+### Step 1 : Create ```zulip``` user
 
-[mypy-coverage]: https://blog.zulip.org/2016/10/13/static-types-in-python-oh-mypy/
-[why-zulip]: https://zulip.com/why-zulip/
-[rust-case-study]: https://zulip.com/case-studies/rust/
-[features]: https://zulip.com/features/
+```sudo adduser zulip```\
+```sudo usermod -aG sudo zulip```\
+#### **You can set the password  whatever you want for the user ```zulip```.**
 
-## Getting started
+### Step 2 : Download the latest source code
 
-- **Contributing code**. Check out our [guide for new
-  contributors](https://zulip.readthedocs.io/en/latest/contributing/contributing.html)
-  to get started. We have invested in making Zulip’s code highly
-  readable, thoughtfully tested, and easy to modify. Beyond that, we
-  have written an extraordinary 150K words of documentation for Zulip
-  contributors.
+- Check out our [source code](https://github.com/Axe-LLC/zulip)
+  to get started.
+- Run ```su - zulip``` to switch to ```zulip``` user.
+- Run ```git clone git@github.com:Axe-LLC/zulip.git``` to clone the repository
+- Run ```cd zulip``` to go to the source directory
 
-- **Contributing non-code**. [Report an
-  issue](https://zulip.readthedocs.io/en/latest/contributing/contributing.html#reporting-issues),
-  [translate](https://zulip.readthedocs.io/en/latest/translating/translating.html)
-  Zulip into your language, or [give us
-  feedback](https://zulip.readthedocs.io/en/latest/contributing/contributing.html#user-feedback).
-  We'd love to hear from you, whether you've been using Zulip for years, or are just
-  trying it out for the first time.
+### Step 3 : Installation
 
-- **Checking Zulip out**. The best way to see Zulip in action is to drop by the
-  [Zulip community server](https://zulip.com/development-community/). We also
-  recommend reading about Zulip's [unique
-  approach](https://zulip.com/why-zulip/) to organizing conversations.
+- **Domain Purchase and Configuration**.\
+-Make sure that you already purchased the domain (```practicechat.app```)\
+-Add a CNAME record to your domain's DNS records
 
-- **Running a Zulip server**. Self-host Zulip directly on Ubuntu or Debian
-  Linux, in [Docker](https://github.com/zulip/docker-zulip), or with prebuilt
-  images for [Digital Ocean](https://marketplace.digitalocean.com/apps/zulip) and
-  [Render](https://render.com/docs/deploy-zulip).
-  Learn more about [self-hosting Zulip](https://zulip.com/self-hosting/).
 
-- **Using Zulip without setting up a server**. Learn about [Zulip
-  Cloud](https://zulip.com/plans/) hosting options. Zulip sponsors free [Zulip
-  Cloud Standard](https://zulip.com/plans/) for hundreds of worthy
-  organizations, including [fellow open-source
-  projects](https://zulip.com/for/open-source/).
+- **Install Practice Chat**.\
+```./scripts/setup/install --certbot --email=ADMINISTRATOR_EMAIL --hostname=practicechat.app```\
+This takes a few minutes to run as it install all the packages and dependencies.
+  <details>
+  <summary>The install script does several things</summary>
 
-- **Participating in [outreach
-  programs](https://zulip.readthedocs.io/en/latest/contributing/contributing.html#outreach-programs)**
-  like [Google Summer of Code](https://developers.google.com/open-source/gsoc/)
-  and [Outreachy](https://www.outreachy.org/).
+  - Creates /home/zulip/deployments/, which the Zulip code for this deployment (and future deployments when you upgrade) goes into. At the very end of the install process, the script moves the Zulip code tree it’s running from (which you unpacked from a tarball above) to a directory there, and makes /home/zulip/deployments/current as a symbolic link to it.
+  - Installs Zulip’s various dependencies.
+  - Configures the various third-party services Zulip uses, including PostgreSQL, RabbitMQ, Memcached and Redis.
+  - Initializes Zulip’s database.
+  </details>
+  <details>
+  <summary>Installer Options</summary>
 
-- **Supporting Zulip**. Advocate for your organization to use Zulip, become a
-  [sponsor](https://github.com/sponsors/zulip), write a review in the mobile app
-  stores, or [help others find
-  Zulip](https://zulip.readthedocs.io/en/latest/contributing/contributing.html#help-others-find-zulip).
+  - ```--email=you@example.com```: The email address for the person or team who maintains the Practice Chat installation. Note that this is a public-facing email address; it may appear on 404 pages, is used as the sender’s address for many automated emails, and is advertised as a support address
+  - ```--hostname=zulip.example.com```: The user-accessible domain name for this Practice Chat server, i.e., what users will type in their web browser. This becomes ```EXTERNAL_HOST``` in the Practice Chat settings.
+  - Configures the various third-party services Practice Chat uses, including PostgreSQL, RabbitMQ, Memcached and Redis.
+  - Initializes Practice Chat’s database.
+  </details>
 
-You may also be interested in reading our [blog](https://blog.zulip.org/), and
-following us on [Twitter](https://twitter.com/zulip) and
-[LinkedIn](https://www.linkedin.com/company/zulip-project/).
 
-Zulip is distributed under the
-[Apache 2.0](https://github.com/zulip/zulip/blob/main/LICENSE) license.
+- **Configure the Nginx server**.\
+```sudo cp /home/zulip/deployments/current/nginx.conf /etc/nginx/sites-available/zulip```\
+```sudo ln -s /etc/nginx/sites-available/zulip /etc/nginx/sites-enabled/zulip```\
+```sudo systemctl restart nginx```
+  <details>
+  <summary>/etc/nginx/sites-available/zulip.conf</summary>
+
+      server {
+          server_name practicechat.app www.practicechat.app;
+          listen 80;
+          listen [::]:80;
+
+          location / {
+              return 301 https://$host$request_uri;
+          }
+
+          include /etc/nginx/zulip-include/certbot;
+      }
+
+      include /etc/nginx/zulip-include/s3-cache;
+      include /etc/nginx/zulip-include/upstreams;
+      include /etc/zulip/nginx_sharding_map.conf;
+
+
+      server {
+          server_name practicechat.app www.practicechat.app;
+          listen 443 ssl http2;
+          listen [::]:443 ssl http2;
+
+          ssl_certificate /etc/ssl/certs/zulip.combined-chain.crt;
+          ssl_certificate_key /etc/ssl/private/zulip.key;
+
+          location /local-static {
+              alias /home/zulip/local-static;
+          }
+
+          include /etc/nginx/zulip-include/certbot;
+          include /etc/nginx/zulip-include/app;
+      }
+
+  </details>
+
+
+- **Obtain SSL certificate for your domain**.\
+```sudo certbot --nginx -d practicechat.app www.practicechat.app```
+
+
+- **Email Gateway Configuration**. <br/>
+```/etc/zulip/settings.py```\
+You can set **EMAIL_HOST**, **EMAIL_HOST_USER**, **EMAIL_USE_TLS**, **EMAIL_USE_TLS**, **DEFAULT_FROM_EMAIL**, **EXTERNAL_HOST** in this file.\
+It must be different per email service provider (Sendgrid, Mailgun, Mailchimp).<br/><br/>
+```/etc/zulip/zulip-secrets.conf```\
+Passwords and secrets are not stored in /etc/zulip/settings.py. The password goes in /etc/zulip/zulip-secrets.conf.\
+In this file, set `email_password`. <br/><br/>
+  <details>
+  <summary>/etc/zulip/settings.py</summary>
+
+      EMAIL_HOST = "smtp.mailgun.org"
+      EMAIL_HOST_USER = "postmaster@axe.software"
+      EMAIL_USE_TLS = True
+      EMAIL_PORT = 587
+      DEFAULT_FROM_EMAIL = "zach@axe.software"
+
+  </details>
+
+
+- **Restart the backend server**.\
+You can restart the server whenever you make changes to the backend using this command ```./scripts/restart-server```<br/><br/>
+
+- **Restart the frontend server (webpack bundling)**.\
+You can rebuild the frontend whenever you make changes to the frontend (css, js, images) using this command ```./tools/update-prod-static```
+
+### Step 4 : Multiple Organization
+
+Coming soon
