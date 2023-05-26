@@ -1015,9 +1015,9 @@ def custom_fetch_user_profile_cross_realm(response: TableData, context: Context)
     response["zerver_userprofile_crossrealm"] = []
 
     bot_name_to_default_email = {
-        "NOTIFICATION_BOT": "notification-bot@practicechat.com",
-        "EMAIL_GATEWAY_BOT": "emailgateway@practicechat.com",
-        "WELCOME_BOT": "welcome-bot@practicechat.com",
+        "NOTIFICATION_BOT": "notification-bot@practicechat.app",
+        "EMAIL_GATEWAY_BOT": "emailgateway@practicechat.app",
+        "WELCOME_BOT": "welcome-bot@practicechat.app",
     }
 
     if realm.string_id == settings.SYSTEM_BOT_REALM:
