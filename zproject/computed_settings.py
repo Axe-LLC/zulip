@@ -512,7 +512,7 @@ if PRODUCTION:
         },
     ]
 
-INTERNAL_BOT_DOMAIN = "practicechat.com"
+INTERNAL_BOT_DOMAIN = "practicechat.app"
 
 ########################################################################
 # CAMO HTTPS CACHE CONFIGURATION
@@ -1181,9 +1181,9 @@ if PRODUCTION:
 PROFILE_ALL_REQUESTS = False
 
 CROSS_REALM_BOT_EMAILS = {
-    "notification-bot@practicechat.com",
-    "welcome-bot@practicechat.com",
-    "emailgateway@practicechat.com",
+    "notification-bot@practicechat.app",
+    "welcome-bot@practicechat.app",
+    "emailgateway@practicechat.app",
 }
 
 TWO_FACTOR_PATCH_ADMIN = False
