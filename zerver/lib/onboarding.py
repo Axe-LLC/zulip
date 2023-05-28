@@ -102,7 +102,7 @@ def send_initial_direct_message(user: UserProfile) -> None:
     )
 
     internal_send_private_message(
-        get_system_bot(settings.CLINICAL_BOT, user.realm_id),
+        get_system_bot(settings.CLINICAL_BOT + user.realm.host, user.realm_id),
         user,
         clinical_bot_content,
         # Note: Welcome bot doesn't trigger email/push notifications,
@@ -125,7 +125,7 @@ def send_initial_direct_message(user: UserProfile) -> None:
     )
 
     internal_send_private_message(
-        get_system_bot(settings.OFFICE_BOT, user.realm_id),
+        get_system_bot(settings.OFFICE_BOT + user.realm.host, user.realm_id),
         user,
         office_bot_content,
         # Note: Welcome bot doesn't trigger email/push notifications,

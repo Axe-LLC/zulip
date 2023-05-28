@@ -317,8 +317,8 @@ NAGIOS_SEND_BOT = "nagios-send-bot@practicechat.app"
 NAGIOS_RECEIVE_BOT = "nagios-receive-bot@practicechat.app"
 WELCOME_BOT = "welcome-bot@practicechat.app"
 REMINDER_BOT = "reminder-bot@practicechat.app"
-CLINICAL_BOT = "ai-bot@practicechat.app"
-OFFICE_BOT = "office-bot@practicechat.app"
+CLINICAL_BOT = "ai-bot@"
+OFFICE_BOT = "office-bot@"
 
 # The following bots are optional system bots not enabled by
 # default.  The default ones are defined in INTERNAL_BOTS, in settings.py.
