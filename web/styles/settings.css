@@ -834,7 +834,7 @@ input[type="checkbox"] {
         width: 50px;
         border-radius: 4px;
         vertical-align: top;
-        box-shadow: 0 0 4px hsl(0deg 0% 0% / 10%);
+        /*box-shadow: 0 0 4px hsl(0deg 0% 0% / 10%);*/
     }
 
     .email,
