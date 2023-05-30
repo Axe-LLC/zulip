@@ -30,6 +30,7 @@ from django.utils.translation import override as override_language
 from django_stubs_ext import ValuesQuerySet
 
 from zerver.actions.uploads import do_claim_attachments
+from zerver.actions.typing import check_send_typing_notification
 from zerver.lib.addressee import Addressee
 from zerver.lib.alert_words import get_alert_word_automaton
 from zerver.lib.cache import cache_with_key, user_profile_delivery_email_cache_key
@@ -912,6 +913,14 @@ def do_send_messages(
             }
             queue_json_publish("embed_links", event_data)
 
+        # We send bot "typing" stop event
+        if send_request.message.sender.is_bot:
+            operator = 'stop'
+            bot_user_profile = send_request.message.sender
+            check_send_typing_notification(bot_user_profile,
+                                           list(send_request.online_push_user_ids),
+                                           operator)
+
         if send_request.message.recipient.type == Recipient.PERSONAL:
             welcome_bot_id = get_system_bot(
                 settings.WELCOME_BOT, send_request.message.sender.realm_id
@@ -935,6 +944,13 @@ def do_send_messages(
                         "user_profile_id": event["user_profile_id"],
                     },
                 )
+
+                # We send bot "typing" start event
+                operator = 'start'
+                bot_user_profile = UserProfile.objects.get(id=event["user_profile_id"])
+                check_send_typing_notification(bot_user_profile,
+                                               list(send_request.online_push_user_ids),
+                                               operator)
 
     return [send_request.message.id for send_request in send_message_requests]
 
