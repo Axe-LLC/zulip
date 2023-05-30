@@ -624,6 +624,10 @@ export function dispatch_normal_event(event) {
             }
             break;
         case "typing":
+            // eslint-disable-next-line no-console
+            console.log(page_params.user_id);
+            // eslint-disable-next-line no-console
+            console.log(event.sender.user_id);
             if (event.sender.user_id === page_params.user_id) {
                 // typing notifications are sent to the user who is typing
                 // as well as recipients; we ignore such self-generated events.
