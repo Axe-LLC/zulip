@@ -65,8 +65,8 @@ AUTHENTICATION_BACKENDS: Tuple[str, ...] = (
 
 EXTERNAL_URI_SCHEME = "https://"
 EMAIL_GATEWAY_PATTERN = "%s@" + EXTERNAL_HOST_WITHOUT_PORT
-NOTIFICATION_BOT = "notification-bot@zulip.com"
-EMAIL_GATEWAY_BOT = "emailgateway@zulip.com"
+NOTIFICATION_BOT = "notification-bot@practicechat.app"
+EMAIL_GATEWAY_BOT = "emailgateway@practicechat.app"
 PHYSICAL_ADDRESS = "Zulip Headquarters, 123 Octo Stream, South Pacific Ocean"
 STAFF_SUBDOMAIN = "zulip"
 EXTRA_INSTALLED_APPS = ["zilencer", "analytics", "corporate"]
