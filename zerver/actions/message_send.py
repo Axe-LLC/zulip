@@ -917,9 +917,10 @@ def do_send_messages(
         if send_request.message.sender.is_bot:
             operator = 'stop'
             bot_user_profile = send_request.message.sender
-            check_send_typing_notification(bot_user_profile,
-                                           list(send_request.online_push_user_ids),
-                                           operator)
+            if bot_user_profile.email.lower() not in settings.CROSS_REALM_BOT_EMAILS:
+                check_send_typing_notification(bot_user_profile,
+                                               list(send_request.online_push_user_ids),
+                                               operator)
 
         if send_request.message.recipient.type == Recipient.PERSONAL:
             welcome_bot_id = get_system_bot(
@@ -948,9 +949,10 @@ def do_send_messages(
                 # We send bot "typing" start event
                 operator = 'start'
                 bot_user_profile = UserProfile.objects.get(id=event["user_profile_id"])
-                check_send_typing_notification(bot_user_profile,
-                                               list(send_request.online_push_user_ids),
-                                               operator)
+                if bot_user_profile.email.lower() not in settings.CROSS_REALM_BOT_EMAILS:
+                    check_send_typing_notification(bot_user_profile,
+                                                   list(send_request.online_push_user_ids),
+                                                   operator)
 
     return [send_request.message.id for send_request in send_message_requests]
 
