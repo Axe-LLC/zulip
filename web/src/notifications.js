@@ -552,7 +552,7 @@ export function send_test_notification(content) {
         {
             id: Math.random(),
             type: "test-notification",
-            sender_email: "notification-bot@zulip.com",
+            sender_email: "notification-bot@practicechat.app",
             sender_full_name: "Notification Bot",
             display_reply_to: "Notification Bot",
             content,

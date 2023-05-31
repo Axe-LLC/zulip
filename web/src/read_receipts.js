@@ -19,7 +19,7 @@ export function show_user_list(message_id) {
         autoremove: true,
         on_show() {
             const message = message_store.get(message_id);
-            if (message.sender_email === "notification-bot@zulip.com") {
+            if (message.sender_email === "notification-bot@practicechat.app") {
                 $("#read_receipts_modal .read_receipts_info").text(
                     $t({
                         defaultMessage:
