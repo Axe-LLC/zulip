@@ -524,21 +524,21 @@ Output:
         return result
 
     example_user_map = dict(
-        hamlet="hamlet@zulip.com",
-        cordelia="cordelia@zulip.com",
-        iago="iago@zulip.com",
-        prospero="prospero@zulip.com",
-        othello="othello@zulip.com",
-        AARON="AARON@zulip.com",
-        aaron="aaron@zulip.com",
-        ZOE="ZOE@zulip.com",
-        polonius="polonius@zulip.com",
-        desdemona="desdemona@zulip.com",
-        shiva="shiva@zulip.com",
-        webhook_bot="webhook-bot@zulip.com",
-        welcome_bot="welcome-bot@zulip.com",
-        outgoing_webhook_bot="outgoing-webhook@zulip.com",
-        default_bot="default-bot@zulip.com",
+        hamlet="hamlet@practicechat.app",
+        cordelia="cordelia@practicechat.app",
+        iago="iago@practicechat.app",
+        prospero="prospero@practicechat.app",
+        othello="othello@practicechat.app",
+        AARON="AARON@practicechat.app",
+        aaron="aaron@practicechat.app",
+        ZOE="ZOE@practicechat.app",
+        polonius="polonius@practicechat.app",
+        desdemona="desdemona@practicechat.app",
+        shiva="shiva@practicechat.app",
+        webhook_bot="webhook-bot@practicechat.app",
+        welcome_bot="welcome-bot@practicechat.app",
+        outgoing_webhook_bot="outgoing-webhook@practicechat.app",
+        default_bot="default-bot@practicechat.app",
     )
 
     mit_user_map = dict(
@@ -548,20 +548,20 @@ Output:
     )
 
     lear_user_map = dict(
-        cordelia="cordelia@zulip.com",
+        cordelia="cordelia@practicechat.app",
         king="king@lear.org",
     )
 
     # Non-registered test users
     nonreg_user_map = dict(
-        test="test@zulip.com",
-        test1="test1@zulip.com",
-        alice="alice@zulip.com",
-        newuser="newuser@zulip.com",
-        bob="bob@zulip.com",
-        cordelia="cordelia@zulip.com",
-        newguy="newguy@zulip.com",
-        me="me@zulip.com",
+        test="test@practicechat.app",
+        test1="test1@practicechat.app",
+        alice="alice@practicechat.app",
+        newuser="newuser@practicechat.app",
+        bob="bob@practicechat.app",
+        cordelia="cordelia@practicechat.app",
+        newguy="newguy@practicechat.app",
+        me="me@practicechat.app",
     )
 
     example_user_ldap_username_map = dict(
@@ -1833,7 +1833,7 @@ class WebhookTestCase(ZulipTestCase):
     """
 
     STREAM_NAME: Optional[str] = None
-    TEST_USER_EMAIL = "webhook-bot@zulip.com"
+    TEST_USER_EMAIL = "webhook-bot@practicechat.app"
     URL_TEMPLATE: str
     WEBHOOK_DIR_NAME: Optional[str] = None
     # This last parameter is a workaround to handle webhooks that do not

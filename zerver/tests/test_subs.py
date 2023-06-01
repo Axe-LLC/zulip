@@ -1541,7 +1541,7 @@ class StreamAdminTest(ZulipTestCase):
         self.assertEqual(actual_stream.realm_id, user_profile.realm_id)
         self.assertEqual(message.recipient.type, Recipient.STREAM)
         self.assertEqual(message.content, message_content)
-        self.assertEqual(message.sender.email, "notification-bot@zulip.com")
+        self.assertEqual(message.sender.email, "notification-bot@practicechat.app")
         self.assertEqual(message.sender.realm, get_realm(settings.SYSTEM_BOT_REALM))
 
     def test_realm_admin_can_update_unsub_private_stream(self) -> None:

@@ -605,7 +605,7 @@ class PasswordResetTest(ZulipTestCase):
             self.assertEqual(
                 info_logs.output,
                 [
-                    "INFO:root:Too many password reset attempts for email hamlet@zulip.com from 127.0.0.1"
+                    "INFO:root:Too many password reset attempts for email hamlet@practicechat.app from 127.0.0.1"
                 ],
             )
             self.assert_length(outbox, 2)
@@ -694,7 +694,7 @@ class PasswordResetTest(ZulipTestCase):
             self.assertEqual(
                 m.output,
                 [
-                    "INFO:root:Password reset attempted for hamlet@zulip.com even though password auth is disabled."
+                    "INFO:root:Password reset attempted for hamlet@practicechat.app even though password auth is disabled."
                 ],
             )
 
@@ -884,7 +884,7 @@ class LoginTest(ZulipTestCase):
             self.assert_logged_in_user_id(None)
 
     def test_login_nonexistent_user(self) -> None:
-        result = self.login_with_return("xxx@zulip.com", "xxx")
+        result = self.login_with_return("xxx@practicechat.app", "xxx")
         self.assertEqual(result.status_code, 200)
         self.assert_in_response("Please enter a correct email and password", result)
         self.assert_logged_in_user_id(None)
@@ -1352,7 +1352,7 @@ class RealmCreationTest(ZulipTestCase):
         self.check_able_to_create_realm("user1@test.com")
 
     def test_create_realm_existing_email(self) -> None:
-        self.check_able_to_create_realm("hamlet@zulip.com")
+        self.check_able_to_create_realm("hamlet@practicechat.app")
 
     @override_settings(AUTHENTICATION_BACKENDS=("zproject.backends.ZulipLDAPAuthBackend",))
     def test_create_realm_ldap_email(self) -> None:
@@ -1360,15 +1360,15 @@ class RealmCreationTest(ZulipTestCase):
 
         with self.settings(LDAP_EMAIL_ATTR="mail"):
             self.check_able_to_create_realm(
-                "newuser_email@zulip.com", self.ldap_password("newuser_with_email")
+                "newuser_email@practicechat.app", self.ldap_password("newuser_with_email")
             )
 
     def test_create_realm_as_system_bot(self) -> None:
         result = self.submit_realm_creation_form(
-            email="notification-bot@zulip.com", realm_subdomain="zuliptest", realm_name="Zulip test"
+            email="notification-bot@practicechat.app", realm_subdomain="zuliptest", realm_name="Zulip test"
         )
         self.assertEqual(result.status_code, 200)
-        self.assert_in_response("notification-bot@zulip.com is reserved for system bots", result)
+        self.assert_in_response("notification-bot@practicechat.app is reserved for system bots", result)
 
     def test_create_realm_no_creation_key(self) -> None:
         """
@@ -1625,7 +1625,7 @@ class RealmCreationTest(ZulipTestCase):
 
         # Make sure the correct Welcome Bot direct message is sent.
         welcome_msg = Message.objects.filter(
-            sender__email="welcome-bot@zulip.com", recipient__type=Recipient.PERSONAL
+            sender__email="welcome-bot@practicechat.app", recipient__type=Recipient.PERSONAL
         ).latest("id")
         self.assertTrue(welcome_msg.content.startswith("Hello, and welcome to Zulip!"))
 
@@ -1676,7 +1676,7 @@ class RealmCreationTest(ZulipTestCase):
 
         # Make sure the correct Welcome Bot direct message is sent.
         welcome_msg = Message.objects.filter(
-            sender__email="welcome-bot@zulip.com", recipient__type=Recipient.PERSONAL
+            sender__email="welcome-bot@practicechat.app", recipient__type=Recipient.PERSONAL
         ).latest("id")
         self.assertTrue(welcome_msg.content.startswith("Hello, and welcome to Zulip!"))
 
@@ -2009,7 +2009,7 @@ class UserSignUpTest(ZulipTestCase):
     def verify_signup(
         self,
         *,
-        email: str = "newguy@zulip.com",
+        email: str = "newguy@practicechat.app",
         password: Optional[str] = "newpassword",
         full_name: str = "New user's name",
         realm: Optional[Realm] = None,
@@ -2257,7 +2257,7 @@ class UserSignUpTest(ZulipTestCase):
         self.assert_in_response("You've already registered", result)
 
     def test_signup_system_bot(self) -> None:
-        email = "notification-bot@zulip.com"
+        email = "notification-bot@practicechat.app"
         result = self.client_post("/accounts/home/", {"email": email}, subdomain="lear")
         self.assertEqual(result.status_code, 302)
         self.assertIn("login", result["Location"])
@@ -2305,7 +2305,7 @@ class UserSignUpTest(ZulipTestCase):
         Check if signing up without a full name redirects to a registration
         form.
         """
-        email = "newguy@zulip.com"
+        email = "newguy@practicechat.app"
         password = "newpassword"
         result = self.verify_signup(email=email, password=password, full_name="")
         # _WSGIPatchedWSGIResponse does not exist in Django, thus the inverted isinstance check.
@@ -2318,7 +2318,7 @@ class UserSignUpTest(ZulipTestCase):
         self.assert_in_success_response(["id_password", "id_full_name"], result)
 
     def test_signup_email_message_contains_org_header(self) -> None:
-        email = "newguy@zulip.com"
+        email = "newguy@practicechat.app"
 
         result = self.client_post("/accounts/home/", {"email": email})
         self.assertEqual(result.status_code, 302)
@@ -2339,7 +2339,7 @@ class UserSignUpTest(ZulipTestCase):
         Check if signing up without a full name redirects to a registration
         form.
         """
-        email = "newguy@zulip.com"
+        email = "newguy@practicechat.app"
         password = "newpassword"
 
         result = self.client_post("/accounts/home/", {"email": email})
@@ -2376,7 +2376,7 @@ class UserSignUpTest(ZulipTestCase):
         Check if signing up without a full name redirects to a registration
         form.
         """
-        email = "newguy@zulip.com"
+        email = "newguy@practicechat.app"
 
         result = self.client_post("/accounts/home/", {"email": email})
         self.assertEqual(result.status_code, 302)
@@ -2658,7 +2658,7 @@ class UserSignUpTest(ZulipTestCase):
         Check if attempting to authenticate to the wrong subdomain logs an
         error and redirects.
         """
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         password = "newpassword"
 
         result = self.client_post("/accounts/home/", {"email": email})
@@ -2693,7 +2693,7 @@ class UserSignUpTest(ZulipTestCase):
                 )
                 self.assertEqual(
                     m.output,
-                    ["ERROR:root:Subdomain mismatch in registration zulip: newuser@zulip.com"],
+                    ["ERROR:root:Subdomain mismatch in registration zulip: newuser@practicechat.app"],
                 )
         self.assertEqual(result.status_code, 302)
 
@@ -2724,7 +2724,7 @@ class UserSignUpTest(ZulipTestCase):
         Check that manually changing the subdomain in a registration
         confirmation link doesn't allow you to register to a different realm.
         """
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         self.client_post("/accounts/home/", {"email": email})
         result = self.client_post(
             "/accounts/register/",
@@ -2803,7 +2803,7 @@ class UserSignUpTest(ZulipTestCase):
         realm.emails_restricted_to_domains = True
         realm.save()
 
-        email = "iago+label@zulip.com"
+        email = "iago+label@practicechat.app"
         form = HomepageForm({"email": email}, realm=realm)
         self.assertIn(
             "Email addresses containing + are not allowed in this organization.",
@@ -2814,7 +2814,7 @@ class UserSignUpTest(ZulipTestCase):
         realm = get_realm("zulip")
         realm.invite_required = True
         realm.save()
-        email = "user@zulip.com"
+        email = "user@practicechat.app"
         form = HomepageForm({"email": email}, realm=realm)
         self.assertIn(f"Please request an invite for {email} from", form.errors["email"][0])
 
@@ -2838,7 +2838,7 @@ class UserSignUpTest(ZulipTestCase):
     )
     def test_ldap_registration_from_confirmation(self) -> None:
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
         self.init_default_ldap_database()
         ldap_user_attr_map = {"full_name": "cn"}
@@ -2888,7 +2888,7 @@ class UserSignUpTest(ZulipTestCase):
                 [
                     "Enter your account details to complete registration.",
                     "New LDAP fullname",
-                    "newuser@zulip.com",
+                    "newuser@practicechat.app",
                 ],
                 result,
             )
@@ -2913,7 +2913,7 @@ class UserSignUpTest(ZulipTestCase):
                     HTTP_HOST=subdomain + ".testserver",
                 )
             self.assert_in_success_response(
-                ["Enter your account details to complete registration.", "newuser@zulip.com"],
+                ["Enter your account details to complete registration.", "newuser@practicechat.app"],
                 result,
             )
 
@@ -2926,7 +2926,7 @@ class UserSignUpTest(ZulipTestCase):
     )
     def test_ldap_populate_only_registration_from_confirmation(self) -> None:
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
         self.init_default_ldap_database()
         ldap_user_attr_map = {"full_name": "cn"}
@@ -2978,7 +2978,7 @@ class UserSignUpTest(ZulipTestCase):
                 [
                     "Enter your account details to complete registration.",
                     "New LDAP fullname",
-                    "newuser@zulip.com",
+                    "newuser@practicechat.app",
                 ],
                 result,
             )
@@ -3003,7 +3003,7 @@ class UserSignUpTest(ZulipTestCase):
     )
     def test_ldap_registration_end_to_end(self) -> None:
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
 
         self.init_default_ldap_database()
@@ -3042,7 +3042,7 @@ class UserSignUpTest(ZulipTestCase):
                 [
                     "Enter your account details to complete registration.",
                     full_name,
-                    "newuser@zulip.com",
+                    "newuser@practicechat.app",
                 ],
                 result,
             )
@@ -3084,7 +3084,7 @@ class UserSignUpTest(ZulipTestCase):
         ldap_user_attr_map = {"first_name": "sn", "last_name": "cn"}
 
         subdomain = "zulip"
-        email = "newuser_splitname@zulip.com"
+        email = "newuser_splitname@practicechat.app"
         password = self.ldap_password("newuser_splitname")
         with patch("zerver.views.registration.get_subdomain", return_value=subdomain):
             result = self.client_post("/register/", {"email": email})
@@ -3141,7 +3141,7 @@ class UserSignUpTest(ZulipTestCase):
         This test verifies that flow.
         """
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
 
         self.init_default_ldap_database()
@@ -3196,7 +3196,7 @@ class UserSignUpTest(ZulipTestCase):
     @override_settings(AUTHENTICATION_BACKENDS=("zproject.backends.ZulipLDAPAuthBackend",))
     def test_ldap_registration_multiple_realms(self) -> None:
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
 
         self.init_default_ldap_database()
         ldap_user_attr_map = {
@@ -3230,7 +3230,7 @@ class UserSignUpTest(ZulipTestCase):
     )
     def test_ldap_registration_when_names_changes_are_disabled(self) -> None:
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
 
         self.init_default_ldap_database()
@@ -3285,7 +3285,7 @@ class UserSignUpTest(ZulipTestCase):
     )
     def test_signup_with_ldap_and_email_enabled_using_email_with_ldap_append_domain(self) -> None:
         password = "nonldappassword"
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
 
         self.init_default_ldap_database()
@@ -3356,7 +3356,7 @@ class UserSignUpTest(ZulipTestCase):
             self.assertEqual(
                 debug_log.output,
                 [
-                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: No LDAP user matching django_to_ldap_username result: newuser. Input username: newuser@zulip.com"
+                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: No LDAP user matching django_to_ldap_username result: newuser. Input username: newuser@practicechat.app"
                 ],
             )
 
@@ -3378,7 +3378,7 @@ class UserSignUpTest(ZulipTestCase):
             self.assertEqual(result.status_code, 200)
             self.assertEqual(
                 m.output,
-                ["WARNING:root:New account email newuser@zulip.com could not be found in LDAP"],
+                ["WARNING:root:New account email newuser@practicechat.app could not be found in LDAP"],
             )
             with self.assertLogs("zulip.ldap", "DEBUG") as debug_log:
                 result = self.submit_reg_form_for_user(
@@ -3391,7 +3391,7 @@ class UserSignUpTest(ZulipTestCase):
             self.assertEqual(
                 debug_log.output,
                 [
-                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: Email newuser@zulip.com does not match LDAP domain example.com."
+                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: Email newuser@practicechat.app does not match LDAP domain example.com."
                 ],
             )
             self.assertEqual(result.status_code, 302)
@@ -3411,7 +3411,7 @@ class UserSignUpTest(ZulipTestCase):
         # If the user's email is inside the LDAP directory and we just
         # have a wrong password, then we refuse to create an account
         password = "nonldappassword"
-        email = "newuser_email@zulip.com"  # belongs to user uid=newuser_with_email in the test directory
+        email = "newuser_email@practicechat.app"  # belongs to user uid=newuser_with_email in the test directory
         subdomain = "zulip"
 
         self.init_default_ldap_database()
@@ -3459,7 +3459,7 @@ class UserSignUpTest(ZulipTestCase):
         # successfully create an account with a password in the Zulip
         # database.
         password = "nonldappassword"
-        email = "nonexistent@zulip.com"
+        email = "nonexistent@practicechat.app"
         subdomain = "zulip"
 
         with patch("zerver.views.registration.get_subdomain", return_value=subdomain):
@@ -3490,7 +3490,7 @@ class UserSignUpTest(ZulipTestCase):
                 self.assertEqual(
                     m.output,
                     [
-                        "WARNING:root:New account email nonexistent@zulip.com could not be found in LDAP"
+                        "WARNING:root:New account email nonexistent@practicechat.app could not be found in LDAP"
                     ],
                 )
 
@@ -3505,7 +3505,7 @@ class UserSignUpTest(ZulipTestCase):
             self.assertEqual(
                 debug_log.output,
                 [
-                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: No LDAP user matching django_to_ldap_username result: nonexistent@zulip.com. Input username: nonexistent@zulip.com"
+                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: No LDAP user matching django_to_ldap_username result: nonexistent@practicechat.app. Input username: nonexistent@practicechat.app"
                 ],
             )
             self.assertEqual(result.status_code, 302)
@@ -3521,7 +3521,7 @@ class UserSignUpTest(ZulipTestCase):
         ldap_user_attr_map = {"full_name": "cn"}
 
         subdomain = "zulip"
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         password = self.ldap_password("newuser")
 
         with self.settings(
@@ -3535,7 +3535,7 @@ class UserSignUpTest(ZulipTestCase):
             self.assertEqual(
                 debug_log.output,
                 [
-                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: No LDAP user matching django_to_ldap_username result: iago. Input username: iago@zulip.com"
+                    "DEBUG:zulip.ldap:ZulipLDAPAuthBackend: No LDAP user matching django_to_ldap_username result: iago. Input username: iago@practicechat.app"
                 ],
             )
             stream_ids = [self.get_stream_id(stream_name) for stream_name in streams]
@@ -3620,7 +3620,7 @@ class UserSignUpTest(ZulipTestCase):
         Test `name_changes_disabled` when we are not running under LDAP.
         """
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
 
         with patch("zerver.views.registration.get_subdomain", return_value=subdomain):
@@ -3649,7 +3649,7 @@ class UserSignUpTest(ZulipTestCase):
 
     def test_realm_creation_through_ldap(self) -> None:
         password = self.ldap_password("newuser")
-        email = "newuser@zulip.com"
+        email = "newuser@practicechat.app"
         subdomain = "zulip"
         realm_name = "Zulip"
 
@@ -3706,7 +3706,7 @@ class UserSignUpTest(ZulipTestCase):
                 HTTP_HOST=subdomain + ".testserver",
             )
             self.assert_in_success_response(
-                ["Enter your account details to complete registration.", "newuser@zulip.com"],
+                ["Enter your account details to complete registration.", "newuser@practicechat.app"],
                 result,
             )
 
@@ -3826,7 +3826,7 @@ class UserSignUpTest(ZulipTestCase):
         """Verify that /devtools/register_user creates a new user, logs them
         in, and redirects to the logged-in app."""
         count = UserProfile.objects.count()
-        email = f"user-{count}@zulip.com"
+        email = f"user-{count}@practicechat.app"
 
         result = self.client_post("/devtools/register_user/")
         user_profile = UserProfile.objects.all().order_by("id").last()
@@ -4049,7 +4049,7 @@ class TestFindMyTeam(ZulipTestCase):
     def test_result(self) -> None:
         # We capitalize a letter in cordelia's email to test that the search is case-insensitive.
         result = self.client_post(
-            "/accounts/find/", dict(emails="iago@zulip.com,cordeliA@zulip.com")
+            "/accounts/find/", dict(emails="iago@practicechat.app,cordeliA@practicechat.app")
         )
         self.assertEqual(result.status_code, 302)
         self.assertEqual(
@@ -4058,8 +4058,8 @@ class TestFindMyTeam(ZulipTestCase):
         result = self.client_get(result["Location"])
         content = result.content.decode()
         self.assertIn("Emails sent! You will only receive emails", content)
-        self.assertIn("iago@zulip.com", content)
-        self.assertIn("cordeliA@zulip.com", content)
+        self.assertIn("iago@practicechat.app", content)
+        self.assertIn("cordeliA@practicechat.app", content)
         from django.core.mail import outbox
 
         self.assert_length(outbox, 2)
@@ -4072,7 +4072,7 @@ class TestFindMyTeam(ZulipTestCase):
 
     def test_find_team_ignore_invalid_email(self) -> None:
         result = self.client_post(
-            "/accounts/find/", dict(emails="iago@zulip.com,invalid_email@zulip.com")
+            "/accounts/find/", dict(emails="iago@practicechat.app,invalid_email@practicechat.app")
         )
         self.assertEqual(result.status_code, 302)
         self.assertEqual(
@@ -4148,7 +4148,7 @@ class TestFindMyTeam(ZulipTestCase):
         self.assert_length(outbox, 0)
 
     def test_find_team_more_than_ten_emails(self) -> None:
-        data = {"emails": ",".join(f"hamlet-{i}@zulip.com" for i in range(11))}
+        data = {"emails": ",".join(f"hamlet-{i}@practicechat.app" for i in range(11))}
         result = self.client_post("/accounts/find/", data)
         self.assertEqual(result.status_code, 200)
         self.assertIn("Please enter at most 10", result.content.decode())
