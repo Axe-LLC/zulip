@@ -125,14 +125,14 @@ class InviteUserTest(InviteUserBase):
         email to be sent.
         """
         self.login("hamlet")
-        invitee = "alice-test@zulip.com"
+        invitee = "alice-test@practicechat.app"
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
         self.assertTrue(find_key_by_email(invitee))
         self.check_sent_emails([invitee])
 
     def test_newbie_restrictions(self) -> None:
         user_profile = self.example_user("hamlet")
-        invitee = "alice-test@zulip.com"
+        invitee = "alice-test@practicechat.app"
         stream_name = "Denmark"
 
         self.login_user(user_profile)
@@ -169,7 +169,7 @@ class InviteUserTest(InviteUserBase):
             if realm is None:
                 realm = get_realm("zulip")
             invitees = ",".join(
-                [f"{realm.string_id}-{i:02}@zulip.com" for i in range(num_invitees)]
+                [f"{realm.string_id}-{i:02}@practicechat.app" for i in range(num_invitees)]
             )
             with self.settings(
                 OPEN_REALM_CREATION=open_realm_creation,
@@ -201,7 +201,7 @@ class InviteUserTest(InviteUserBase):
             stream_name="general",
         )
         self.assert_json_success(result)
-        self.check_sent_emails([f"lear-{i:02}@zulip.com" for i in range(20)], clear=True)
+        self.check_sent_emails([f"lear-{i:02}@practicechat.app" for i in range(20)], clear=True)
 
         # Which prevents inviting 1 in our realm:
         self.login_user(user_profile)
@@ -212,7 +212,7 @@ class InviteUserTest(InviteUserBase):
         # If our realm max is over the default realm's, we're exempt from INVITES_NEW_REALM_LIMIT_DAYS
         result = try_invite(10, default_realm_max=15, new_realm_max=5, realm_max=20)
         self.assert_json_success(result)
-        self.check_sent_emails([f"zulip-{i:02}@zulip.com" for i in range(10)], clear=True)
+        self.check_sent_emails([f"zulip-{i:02}@practicechat.app" for i in range(10)], clear=True)
 
         # We've sent 10 invites.  Trying to invite 15 people, even if
         # 10 of them are the same, still trips the limit (10 previous
@@ -225,7 +225,7 @@ class InviteUserTest(InviteUserBase):
         # sends emails to the same 10 users again.
         result = try_invite(10, default_realm_max=15, new_realm_max=5, realm_max=20)
         self.assert_json_success(result)
-        self.check_sent_emails([f"zulip-{i:02}@zulip.com" for i in range(10)], clear=True)
+        self.check_sent_emails([f"zulip-{i:02}@practicechat.app" for i in range(10)], clear=True)
 
         # We've sent 20 invites.  The 10 we just sent do count against
         # us if we send to them again, since we did send mail
@@ -239,7 +239,7 @@ class InviteUserTest(InviteUserBase):
         realm.save()
         result = try_invite(10, default_realm_max=50, new_realm_max=20, realm_max=40)
         self.assert_json_success(result)
-        self.check_sent_emails([f"zulip-{i:02}@zulip.com" for i in range(10)], clear=True)
+        self.check_sent_emails([f"zulip-{i:02}@practicechat.app" for i in range(10)], clear=True)
 
         # We've sent 30 invites.  None of the limits matter if open
         # realm creation is disabled.
@@ -247,14 +247,14 @@ class InviteUserTest(InviteUserBase):
             10, default_realm_max=30, new_realm_max=20, realm_max=10, open_realm_creation=False
         )
         self.assert_json_success(result)
-        self.check_sent_emails([f"zulip-{i:02}@zulip.com" for i in range(10)], clear=True)
+        self.check_sent_emails([f"zulip-{i:02}@practicechat.app" for i in range(10)], clear=True)
 
         # We've sent 40 invites "today".  Fast-forward 48 hours
         # and ensure that we can invite more people
         with time_machine.travel(timezone_now() + datetime.timedelta(hours=48)):
             result = try_invite(5, default_realm_max=30, new_realm_max=20, realm_max=10)
             self.assert_json_success(result)
-            self.check_sent_emails([f"zulip-{i:02}@zulip.com" for i in range(5)], clear=True)
+            self.check_sent_emails([f"zulip-{i:02}@practicechat.app" for i in range(5)], clear=True)
 
             # We've sent 5 invites.  Ensure we can trip the fresh "today" limit for the realm
             result = try_invite(10, default_realm_max=30, new_realm_max=20, realm_max=10)
@@ -474,8 +474,8 @@ class InviteUserTest(InviteUserBase):
         inviter = self.example_user("hamlet")
         self.login_user(inviter)
 
-        cross_realm_bot_email = "emailgateway@zulip.com"
-        legit_new_email = "fred@zulip.com"
+        cross_realm_bot_email = "emailgateway@practicechat.app"
+        legit_new_email = "fred@practicechat.app"
         invitee_emails = ",".join([cross_realm_bot_email, legit_new_email])
 
         result = self.invite(invitee_emails, ["Denmark"])
@@ -671,7 +671,7 @@ class InviteUserTest(InviteUserBase):
         email to be sent.
         """
         self.login("hamlet")
-        email = "alice-test@zulip.com"
+        email = "alice-test@practicechat.app"
         invitee = f"Alice Test <{email}>"
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
         self.assertTrue(find_key_by_email(email))
@@ -683,8 +683,8 @@ class InviteUserTest(InviteUserBase):
         email to be sent.
         """
         self.login("hamlet")
-        email = "alice-test@zulip.com"
-        email2 = "bob-test@zulip.com"
+        email = "alice-test@practicechat.app"
+        email2 = "bob-test@practicechat.app"
         invitee = f"Alice Test <{email}>, {email2}"
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
         self.assertTrue(find_key_by_email(email))
@@ -714,8 +714,8 @@ class InviteUserTest(InviteUserBase):
             realm, "invite_to_realm_policy", Realm.POLICY_NOBODY, acting_user=None
         )
         self.login("desdemona")
-        email = "alice-test@zulip.com"
-        email2 = "bob-test@zulip.com"
+        email = "alice-test@practicechat.app"
+        email2 = "bob-test@practicechat.app"
         invitee = f"Alice Test <{email}>, {email2}"
         self.assert_json_error(
             self.invite(invitee, ["Denmark"]),
@@ -746,8 +746,8 @@ class InviteUserTest(InviteUserBase):
             realm, "invite_to_realm_policy", Realm.POLICY_MODERATORS_ONLY, acting_user=None
         )
         self.login("hamlet")
-        email = "carol-test@zulip.com"
-        email2 = "earl-test@zulip.com"
+        email = "carol-test@practicechat.app"
+        email2 = "earl-test@practicechat.app"
         invitee = f"Carol Test <{email}>, {email2}"
         self.assert_json_error(
             self.invite(invitee, ["Denmark"]),
@@ -767,8 +767,8 @@ class InviteUserTest(InviteUserBase):
         )
 
         self.login("polonius")
-        email = "dave-test@zulip.com"
-        email2 = "mark-test@zulip.com"
+        email = "dave-test@practicechat.app"
+        email2 = "mark-test@practicechat.app"
         invitee = f"Dave Test <{email}>, {email2}"
         self.assert_json_error(self.invite(invitee, ["Denmark"]), "Not allowed for guest users")
 
@@ -790,8 +790,8 @@ class InviteUserTest(InviteUserBase):
             days=(realm.waiting_period_threshold - 1)
         )
 
-        email = "issac-test@zulip.com"
-        email2 = "steven-test@zulip.com"
+        email = "issac-test@practicechat.app"
+        email2 = "steven-test@practicechat.app"
         invitee = f"Issac Test <{email}>, {email2}"
         self.assert_json_error(
             self.invite(invitee, ["Denmark"]),
@@ -846,21 +846,21 @@ class InviteUserTest(InviteUserBase):
 
         self.assertEqual(secret_msg.id, secret_msg_id)
 
-        self.assertEqual(inviter_msg.sender.email, "notification-bot@zulip.com")
+        self.assertEqual(inviter_msg.sender.email, "notification-bot@practicechat.app")
         self.assertTrue(
             inviter_msg.content.startswith(
-                f"alice_zulip.com <`{invitee_profile.email}`> accepted your",
+                f"alice_practicechat.app <`{invitee_profile.email}`> accepted your",
             )
         )
 
-        self.assertEqual(signups_stream_msg.sender.email, "notification-bot@zulip.com")
+        self.assertEqual(signups_stream_msg.sender.email, "notification-bot@practicechat.app")
         self.assertTrue(
             signups_stream_msg.content.startswith(
-                f"@_**alice_zulip.com|{invitee_profile.id}** just signed up",
+                f"@_**alice_practicechat.app|{invitee_profile.id}** just signed up",
             )
         )
 
-        self.assertEqual(invitee_msg.sender.email, "welcome-bot@zulip.com")
+        self.assertEqual(invitee_msg.sender.email, "welcome-bot@practicechat.app")
         self.assertTrue(invitee_msg.content.startswith("Hello, and welcome to Zulip!"))
         self.assertNotIn("demo organization", invitee_msg.content)
 
@@ -872,22 +872,22 @@ class InviteUserTest(InviteUserBase):
         # Intentionally use a weird string.
         self.assert_json_success(
             self.invite(
-                """bob-test@zulip.com,     carol-test@zulip.com,
-            dave-test@zulip.com
+                """bob-test@practicechat.app,     carol-test@practicechat.app,
+            dave-test@practicechat.app
 
 
-earl-test@zulip.com""",
+earl-test@practicechat.app""",
                 ["Denmark"],
             )
         )
         for user in ("bob", "carol", "dave", "earl"):
-            self.assertTrue(find_key_by_email(f"{user}-test@zulip.com"))
+            self.assertTrue(find_key_by_email(f"{user}-test@practicechat.app"))
         self.check_sent_emails(
             [
-                "bob-test@zulip.com",
-                "carol-test@zulip.com",
-                "dave-test@zulip.com",
-                "earl-test@zulip.com",
+                "bob-test@practicechat.app",
+                "carol-test@practicechat.app",
+                "dave-test@practicechat.app",
+                "earl-test@practicechat.app",
             ]
         )
 
@@ -908,7 +908,7 @@ earl-test@zulip.com""",
         do_set_realm_property(realm, "emails_restricted_to_domains", True, acting_user=None)
 
         self.login("hamlet")
-        invitee_emails = "foo@zulip.com"
+        invitee_emails = "foo@practicechat.app"
         self.assert_json_error(
             self.invite(invitee_emails, []),
             "You must specify at least one stream for invitees to join.",
@@ -931,7 +931,7 @@ earl-test@zulip.com""",
         Guest user can't invite new users
         """
         self.login("polonius")
-        invitee = "alice-test@zulip.com"
+        invitee = "alice-test@practicechat.app"
         self.assert_json_error(self.invite(invitee, ["Denmark"]), "Not allowed for guest users")
         self.assertEqual(find_key_by_email(invitee), None)
         self.check_sent_emails([])
@@ -942,7 +942,7 @@ earl-test@zulip.com""",
         """
         self.login("hamlet")
         self.assert_json_error(
-            self.invite("iago-test@zulip.com", ["NotARealStream"]),
+            self.invite("iago-test@practicechat.app", ["NotARealStream"]),
             f"Stream does not exist with id: {self.INVALID_STREAM_ID}. No invites were sent.",
         )
         self.check_sent_emails([])
@@ -953,7 +953,7 @@ earl-test@zulip.com""",
         """
         self.login("hamlet")
 
-        hamlet_email = "hAmLeT@zUlIp.com"
+        hamlet_email = "hAmLeT@practicechat.app"
         result = self.invite(hamlet_email, ["Denmark"])
         self.assert_json_error(result, "We weren't able to invite anyone.")
 
@@ -975,9 +975,9 @@ earl-test@zulip.com""",
         # Test we properly handle links in user full names
         do_change_full_name(hamlet, "</a> https://www.google.com", hamlet)
 
-        result = self.invite("newuser@zulip.com", ["Denmark"])
+        result = self.invite("newuser@practicechat.app", ["Denmark"])
         self.assert_json_success(result)
-        self.check_sent_emails(["newuser@zulip.com"])
+        self.check_sent_emails(["newuser@practicechat.app"])
         assert isinstance(mail.outbox[0], EmailMultiAlternatives)
         assert isinstance(mail.outbox[0].alternatives[0][0], str)
         body = self.normalize_string(mail.outbox[0].alternatives[0][0])
@@ -987,7 +987,7 @@ earl-test@zulip.com""",
         # field, because we've included that field inside the mailto:
         # link for the sender.
         self.assertIn(
-            '<a href="mailto:hamlet@zulip.com" style="color: #007AFF;text-decoration: underline;">&lt;/a&gt; https://www.google.com (hamlet@zulip.com)</a> wants',
+            '<a href="mailto:hamlet@practicechat.app" style="color: #007AFF;text-decoration: underline;">&lt;/a&gt; https://www.google.com (hamlet@practicechat.app)</a> wants',
             body,
         )
 
@@ -1001,8 +1001,8 @@ earl-test@zulip.com""",
         only sent to the new users.
         """
         self.login("hamlet")
-        existing = [self.example_email("hamlet"), "othello@zulip.com"]
-        new = ["foo-test@zulip.com", "bar-test@zulip.com"]
+        existing = [self.example_email("hamlet"), "othello@practicechat.app"]
+        new = ["foo-test@practicechat.app", "bar-test@practicechat.app"]
         invitee_emails = "\n".join(existing + new)
         self.assert_json_error(
             self.invite(invitee_emails, ["Denmark"]),
@@ -1137,7 +1137,7 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
         zulip_realm.save()
 
         self.login("hamlet")
-        external_address = "foo+label@zulip.com"
+        external_address = "foo+label@practicechat.app"
 
         self.assert_json_success(self.invite(external_address, ["Denmark"]))
         self.check_sent_emails([external_address])
@@ -1151,7 +1151,7 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
 
     def test_invalid_email_check_after_confirming_email(self) -> None:
         self.login("hamlet")
-        email = "test@zulip.com"
+        email = "test@practicechat.app"
 
         self.assert_json_success(self.invite(email, ["Denmark"]))
 
@@ -1172,7 +1172,7 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
         Inviting someone to streams with non-ASCII characters succeeds.
         """
         self.login("hamlet")
-        invitee = "alice-test@zulip.com"
+        invitee = "alice-test@practicechat.app"
 
         stream_name = "hÃ¼mbÃ¼Çµ"
 
@@ -1250,18 +1250,18 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
     def test_no_invitation_reminder_when_link_expires_quickly(self) -> None:
         self.login("hamlet")
         # Check invitation reminder email is scheduled with 4 day link expiry
-        self.invite("alice@zulip.com", ["Denmark"], invite_expires_in_minutes=4 * 24 * 60)
+        self.invite("alice@practicechat.app", ["Denmark"], invite_expires_in_minutes=4 * 24 * 60)
         self.assertEqual(
             ScheduledEmail.objects.filter(
-                address="alice@zulip.com", type=ScheduledEmail.INVITATION_REMINDER
+                address="alice@practicechat.app", type=ScheduledEmail.INVITATION_REMINDER
             ).count(),
             1,
         )
         # Check invitation reminder email is not scheduled with 3 day link expiry
-        self.invite("bob@zulip.com", ["Denmark"], invite_expires_in_minutes=3 * 24 * 60)
+        self.invite("bob@practicechat.app", ["Denmark"], invite_expires_in_minutes=3 * 24 * 60)
         self.assertEqual(
             ScheduledEmail.objects.filter(
-                address="bob@zulip.com", type=ScheduledEmail.INVITATION_REMINDER
+                address="bob@practicechat.app", type=ScheduledEmail.INVITATION_REMINDER
             ).count(),
             0,
         )
@@ -1348,20 +1348,20 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
         invite_expires_in_minutes = 2 * 24 * 60
         do_invite_users(
             self.user_profile,
-            ["foo@zulip.com"],
+            ["foo@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
-        prereg_user = PreregistrationUser.objects.get(email="foo@zulip.com")
+        prereg_user = PreregistrationUser.objects.get(email="foo@practicechat.app")
         do_invite_users(
             self.user_profile,
-            ["foo@zulip.com"],
+            ["foo@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
         do_invite_users(
             self.user_profile,
-            ["foo@zulip.com"],
+            ["foo@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
@@ -1370,14 +1370,14 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
         lear = get_realm("lear")
         lear_user = self.lear_user("cordelia")
         do_invite_users(
-            lear_user, ["foo@zulip.com"], [], invite_expires_in_minutes=invite_expires_in_minutes
+            lear_user, ["foo@practicechat.app"], [], invite_expires_in_minutes=invite_expires_in_minutes
         )
 
-        invites = PreregistrationUser.objects.filter(email__iexact="foo@zulip.com")
+        invites = PreregistrationUser.objects.filter(email__iexact="foo@practicechat.app")
         self.assert_length(invites, 4)
 
         created_user = do_create_user(
-            "foo@zulip.com",
+            "foo@practicechat.app",
             "password",
             self.user_profile.realm,
             "full name",
@@ -1386,10 +1386,10 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
         )
 
         accepted_invite = PreregistrationUser.objects.filter(
-            email__iexact="foo@zulip.com", status=confirmation_settings.STATUS_USED
+            email__iexact="foo@practicechat.app", status=confirmation_settings.STATUS_USED
         )
         revoked_invites = PreregistrationUser.objects.filter(
-            email__iexact="foo@zulip.com", status=confirmation_settings.STATUS_REVOKED
+            email__iexact="foo@practicechat.app", status=confirmation_settings.STATUS_REVOKED
         )
         # If a user was invited more than once, when it accepts one invite and register
         # the others must be canceled.
@@ -1401,7 +1401,7 @@ so we didn't send them an invitation. We did send invitations to everyone else!"
         self.assertEqual(set(revoked_invites), expected_revoked_invites)
 
         self.assertEqual(
-            PreregistrationUser.objects.get(email__iexact="foo@zulip.com", realm=lear).status, 0
+            PreregistrationUser.objects.get(email__iexact="foo@practicechat.app", realm=lear).status, 0
         )
 
         with self.assertRaises(AssertionError):
@@ -1578,25 +1578,25 @@ class InvitationsTestCase(InviteUserBase):
         invite_expires_in_minutes = 2 * 24 * 60
         do_invite_users(
             user_profile,
-            ["TestOne@zulip.com"],
+            ["TestOne@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
         do_invite_users(
             user_profile,
-            ["TestTwo@zulip.com"],
+            ["TestTwo@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
         do_invite_users(
             hamlet,
-            ["TestThree@zulip.com"],
+            ["TestThree@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
         do_invite_users(
             othello,
-            ["TestFour@zulip.com"],
+            ["TestFour@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
@@ -1634,7 +1634,7 @@ class InvitationsTestCase(InviteUserBase):
         invite_expires_in_minutes = 2 * 24 * 60
         do_invite_users(
             user_profile,
-            ["TestOne@zulip.com"],
+            ["TestOne@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
@@ -1645,7 +1645,7 @@ class InvitationsTestCase(InviteUserBase):
         ):
             do_invite_users(
                 user_profile,
-                ["TestTwo@zulip.com"],
+                ["TestTwo@practicechat.app"],
                 streams,
                 invite_expires_in_minutes=invite_expires_in_minutes,
             )
@@ -1654,7 +1654,7 @@ class InvitationsTestCase(InviteUserBase):
             )
 
         prereg_user_three = PreregistrationUser(
-            email="TestThree@zulip.com", referred_by=user_profile, status=active_value
+            email="TestThree@practicechat.app", referred_by=user_profile, status=active_value
         )
         prereg_user_three.save()
         create_confirmation_link(
@@ -1673,7 +1673,7 @@ class InvitationsTestCase(InviteUserBase):
         self.assert_length(invites, 2)
 
         self.assertFalse(invites[0]["is_multiuse"])
-        self.assertEqual(invites[0]["email"], "TestOne@zulip.com")
+        self.assertEqual(invites[0]["email"], "TestOne@practicechat.app")
         self.assertTrue(invites[1]["is_multiuse"])
         self.assertEqual(invites[1]["invited_by_user_id"], hamlet.id)
 
@@ -1693,13 +1693,13 @@ class InvitationsTestCase(InviteUserBase):
             # after a large amount of days.
             do_invite_users(
                 user_profile,
-                ["TestOne@zulip.com"],
+                ["TestOne@practicechat.app"],
                 streams,
                 invite_expires_in_minutes=None,
             )
             do_invite_users(
                 user_profile,
-                ["TestTwo@zulip.com"],
+                ["TestTwo@practicechat.app"],
                 streams,
                 invite_expires_in_minutes=100 * 24 * 60,
             )
@@ -1718,7 +1718,7 @@ class InvitationsTestCase(InviteUserBase):
         self.assert_length(invites, 2)
 
         self.assertFalse(invites[0]["is_multiuse"])
-        self.assertEqual(invites[0]["email"], "TestOne@zulip.com")
+        self.assertEqual(invites[0]["email"], "TestOne@practicechat.app")
         self.assertEqual(invites[0]["expiry_date"], None)
         self.assertTrue(invites[1]["is_multiuse"])
         self.assertEqual(invites[1]["invited_by_user_id"], user_profile.id)
@@ -1731,7 +1731,7 @@ class InvitationsTestCase(InviteUserBase):
         """
         self.login("iago")
 
-        invitee = "DeleteMe@zulip.com"
+        invitee = "DeleteMe@practicechat.app"
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
         prereg_user = PreregistrationUser.objects.get(email=invitee)
 
@@ -1757,7 +1757,7 @@ class InvitationsTestCase(InviteUserBase):
         """
         user_profile = self.example_user("hamlet")
         self.login_user(user_profile)
-        invitee = "DeleteMe@zulip.com"
+        invitee = "DeleteMe@practicechat.app"
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
 
         # Verify that the scheduled email exists.
@@ -1792,7 +1792,7 @@ class InvitationsTestCase(InviteUserBase):
         self.login("desdemona")
         owner = self.example_user("desdemona")
 
-        invitee = "DeleteMe@zulip.com"
+        invitee = "DeleteMe@practicechat.app"
         self.assert_json_success(
             self.invite(
                 invitee, ["Denmark"], invite_as=PreregistrationUser.INVITE_AS["REALM_OWNER"]
@@ -1887,7 +1887,7 @@ class InvitationsTestCase(InviteUserBase):
         and delete any scheduled invitation reminder email.
         """
         self.login("iago")
-        invitee = "resend_me@zulip.com"
+        invitee = "resend_me@practicechat.app"
 
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
         prereg_user = PreregistrationUser.objects.get(email=invitee)
@@ -1931,7 +1931,7 @@ class InvitationsTestCase(InviteUserBase):
         """
         self.login("hamlet")
         user_profile = self.example_user("hamlet")
-        invitee = "resend_me@zulip.com"
+        invitee = "resend_me@practicechat.app"
         self.assert_json_success(self.invite(invitee, ["Denmark"]))
         # Verify hamlet has only one invitation (Member can resend invitations only sent by him).
         invitation = PreregistrationUser.objects.filter(referred_by=user_profile)
@@ -1972,7 +1972,7 @@ class InvitationsTestCase(InviteUserBase):
 
         self.logout()
         self.login("othello")
-        invitee = "TestOne@zulip.com"
+        invitee = "TestOne@practicechat.app"
         prereg_user_one = PreregistrationUser(email=invitee, referred_by=user_profile)
         prereg_user_one.save()
         prereg_user = PreregistrationUser.objects.get(email=invitee)
@@ -1982,7 +1982,7 @@ class InvitationsTestCase(InviteUserBase):
     def test_resend_owner_invitation(self) -> None:
         self.login("desdemona")
 
-        invitee = "resend_owner@zulip.com"
+        invitee = "resend_owner@practicechat.app"
         self.assert_json_success(
             self.invite(
                 invitee, ["Denmark"], invite_as=PreregistrationUser.INVITE_AS["REALM_OWNER"]
@@ -2020,7 +2020,7 @@ class InvitationsTestCase(InviteUserBase):
 
     def test_resend_never_expiring_invitation(self) -> None:
         self.login("iago")
-        invitee = "resend@zulip.com"
+        invitee = "resend@practicechat.app"
 
         self.assert_json_success(self.invite(invitee, ["Denmark"], None))
         prereg_user = PreregistrationUser.objects.get(email=invitee)
@@ -2080,9 +2080,9 @@ class InvitationsTestCase(InviteUserBase):
 class InviteeEmailsParserTests(ZulipTestCase):
     def setUp(self) -> None:
         super().setUp()
-        self.email1 = "email1@zulip.com"
-        self.email2 = "email2@zulip.com"
-        self.email3 = "email3@zulip.com"
+        self.email1 = "email1@practicechat.app"
+        self.email2 = "email2@practicechat.app"
+        self.email3 = "email3@practicechat.app"
 
     def test_if_emails_separated_by_commas_are_parsed_and_striped_correctly(self) -> None:
         emails_raw = f"{self.email1} ,{self.email2}, {self.email3}"

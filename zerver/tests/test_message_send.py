@@ -304,7 +304,7 @@ class MessagePOSTTest(ZulipTestCase):
         )
 
         # Cross realm bots should be allowed
-        notification_bot = get_system_bot("notification-bot@zulip.com", stream.realm_id)
+        notification_bot = get_system_bot("notification-bot@practicechat.app", stream.realm_id)
         internal_send_stream_message(
             notification_bot, stream, "Test topic", "Test message by notification bot"
         )
@@ -386,7 +386,7 @@ class MessagePOSTTest(ZulipTestCase):
         )
 
         # System bots should be allowed
-        notification_bot = get_system_bot("notification-bot@zulip.com", stream.realm_id)
+        notification_bot = get_system_bot("notification-bot@practicechat.app", stream.realm_id)
         internal_send_stream_message(
             notification_bot, stream, "Test topic", "Test message by notification bot"
         )
@@ -494,7 +494,7 @@ class MessagePOSTTest(ZulipTestCase):
         self._send_and_verify_message(moderator_owned_bot, stream_name)
 
         # System bots should be allowed
-        notification_bot = get_system_bot("notification-bot@zulip.com", stream.realm_id)
+        notification_bot = get_system_bot("notification-bot@practicechat.app", stream.realm_id)
         internal_send_stream_message(
             notification_bot, stream, "Test topic", "Test message by notification bot"
         )
@@ -1177,7 +1177,7 @@ class MessagePOSTTest(ZulipTestCase):
                 "type": "stream",
                 "forged": "true",
                 "time": fake_timestamp,
-                "sender": "irc-user@irc.zulip.com",
+                "sender": "irc-user@irc.practicechat.app",
                 "content": "Test message",
                 "client": "irc_mirror",
                 "topic": "from irc",
@@ -1200,7 +1200,7 @@ class MessagePOSTTest(ZulipTestCase):
                 "type": "stream",
                 "forged": "yes",
                 "time": fake_timestamp,
-                "sender": "irc-user@irc.zulip.com",
+                "sender": "irc-user@irc.practicechat.app",
                 "content": "Test message",
                 "client": "irc_mirror",
                 "topic": "from irc",
@@ -1258,7 +1258,7 @@ class MessagePOSTTest(ZulipTestCase):
         )
 
         test_with(
-            sender_email="irc_person@zulip.com",
+            sender_email="irc_person@practicechat.app",
             client="irc_mirror",
             forged=True,
         )
@@ -1600,7 +1600,7 @@ class StreamMessagesTest(ZulipTestCase):
         self.subscribe(hamlet, stream_name)
 
         normal_bot = do_create_user(
-            email="normal-bot@zulip.com",
+            email="normal-bot@practicechat.app",
             password="",
             realm=realm,
             full_name="Normal Bot",
@@ -1909,7 +1909,7 @@ class PersonalMessageSendTest(ZulipTestCase):
             self.send_personal_message(user_profile, self.example_user("cordelia"))
 
         bot_profile = self.create_test_bot("testbot", user_profile)
-        notification_bot = get_system_bot("notification-bot@zulip.com", user_profile.realm_id)
+        notification_bot = get_system_bot("notification-bot@practicechat.app", user_profile.realm_id)
         self.send_personal_message(user_profile, notification_bot)
         self.send_personal_message(user_profile, bot_profile)
         self.send_personal_message(bot_profile, user_profile)
@@ -1970,29 +1970,29 @@ class ExtractTest(ZulipTestCase):
 
     def test_extract_private_recipients_emails(self) -> None:
         # JSON list w/dups, empties, and trailing whitespace
-        s = orjson.dumps([" alice@zulip.com ", " bob@zulip.com ", "   ", "bob@zulip.com"]).decode()
+        s = orjson.dumps([" alice@practicechat.app ", " bob@practicechat.app ", "   ", "bob@practicechat.app"]).decode()
         # sorted() gets confused by extract_private_recipients' return type
         # For testing, ignorance here is better than manual casting
         result = sorted(extract_private_recipients(s))
-        self.assertEqual(result, ["alice@zulip.com", "bob@zulip.com"])
+        self.assertEqual(result, ["alice@practicechat.app", "bob@practicechat.app"])
 
         # simple string with one name
-        s = "alice@zulip.com    "
-        self.assertEqual(extract_private_recipients(s), ["alice@zulip.com"])
+        s = "alice@practicechat.app    "
+        self.assertEqual(extract_private_recipients(s), ["alice@practicechat.app"])
 
         # JSON-encoded string
-        s = '"alice@zulip.com"'
-        self.assertEqual(extract_private_recipients(s), ["alice@zulip.com"])
+        s = '"alice@practicechat.app"'
+        self.assertEqual(extract_private_recipients(s), ["alice@practicechat.app"])
 
         # bare comma-delimited string
-        s = "bob@zulip.com, alice@zulip.com"
+        s = "bob@practicechat.app, alice@practicechat.app"
         result = sorted(extract_private_recipients(s))
-        self.assertEqual(result, ["alice@zulip.com", "bob@zulip.com"])
+        self.assertEqual(result, ["alice@practicechat.app", "bob@practicechat.app"])
 
         # JSON-encoded, comma-delimited string
-        s = '"bob@zulip.com,alice@zulip.com"'
+        s = '"bob@practicechat.app,alice@practicechat.app"'
         result = sorted(extract_private_recipients(s))
-        self.assertEqual(result, ["alice@zulip.com", "bob@zulip.com"])
+        self.assertEqual(result, ["alice@practicechat.app", "bob@practicechat.app"])
 
         # Invalid data
         s = orjson.dumps(dict(color="red")).decode()
@@ -2056,7 +2056,7 @@ class InternalPrepTest(ZulipTestCase):
         self.assertEqual(
             m.output[0].split("\n")[0],
             "ERROR:root:Error queueing internal message by {}: {}".format(
-                "cordelia@zulip.com", "Message must not be empty"
+                "cordelia@practicechat.app", "Message must not be empty"
             ),
         )
 
@@ -2071,7 +2071,7 @@ class InternalPrepTest(ZulipTestCase):
         self.assertEqual(
             m.output[0].split("\n")[0],
             "ERROR:root:Error queueing internal message by {}: {}".format(
-                "cordelia@zulip.com", "Message must not be empty"
+                "cordelia@practicechat.app", "Message must not be empty"
             ),
         )
 
@@ -2086,7 +2086,7 @@ class InternalPrepTest(ZulipTestCase):
         self.assertEqual(
             m.output[0].split("\n")[0],
             "ERROR:root:Error queueing internal message by {}: {}".format(
-                "cordelia@zulip.com", "Message must not be empty"
+                "cordelia@practicechat.app", "Message must not be empty"
             ),
         )
 
@@ -2102,7 +2102,7 @@ class InternalPrepTest(ZulipTestCase):
         self.assertEqual(
             m.output[0].split("\n")[0],
             "ERROR:root:Error queueing internal message by {}: {}".format(
-                "cordelia@zulip.com", "Message must not be empty"
+                "cordelia@practicechat.app", "Message must not be empty"
             ),
         )
 
@@ -2130,7 +2130,7 @@ class InternalPrepTest(ZulipTestCase):
         self.assertEqual(
             m.output[0].split("\n")[0],
             "ERROR:root:Error queueing internal message by {}: {}".format(
-                "cordelia@zulip.com",
+                "cordelia@practicechat.app",
                 "You can't send direct messages outside of your organization.",
             ),
         )
@@ -2169,8 +2169,8 @@ class TestCrossRealmPMs(ZulipTestCase):
 
     @override_settings(
         CROSS_REALM_BOT_EMAILS=[
-            "notification-bot@zulip.com",
-            "welcome-bot@zulip.com",
+            "notification-bot@practicechat.app",
+            "welcome-bot@practicechat.app",
             "support@3.example.com",
         ]
     )
@@ -2190,8 +2190,8 @@ class TestCrossRealmPMs(ZulipTestCase):
         user1a_email = "user1a@1.example.com"
         user2_email = "user2@2.example.com"
         user3_email = "user3@3.example.com"
-        notification_bot_email = "notification-bot@zulip.com"
-        support_email = "support@3.example.com"  # note: not zulip.com
+        notification_bot_email = "notification-bot@practicechat.app"
+        support_email = "support@3.example.com"  # note: not practicechat.app
 
         user1 = self.create_user(user1_email)
         user1a = self.create_user(user1a_email)
@@ -2201,7 +2201,7 @@ class TestCrossRealmPMs(ZulipTestCase):
         internal_realm = get_realm(settings.SYSTEM_BOT_REALM)
         notification_bot = get_system_bot(notification_bot_email, internal_realm.id)
         with self.settings(
-            CROSS_REALM_BOT_EMAILS=["notification-bot@zulip.com", "welcome-bot@zulip.com"]
+            CROSS_REALM_BOT_EMAILS=["notification-bot@practicechat.app", "welcome-bot@practicechat.app"]
         ):
             # HACK: We should probably be creating this "bot" user another
             # way, but since you can't register a user with a
@@ -2216,7 +2216,7 @@ class TestCrossRealmPMs(ZulipTestCase):
         self.send_personal_message(user1, user1a)
         assert_message_received(user1a, user1)
 
-        # Cross-realm bots in the zulip.com realm can PM any realm
+        # Cross-realm bots in the practicechat.app realm can PM any realm
         # (They need lower level APIs to do this.)
         internal_send_private_message(
             sender=notification_bot,
@@ -2225,7 +2225,7 @@ class TestCrossRealmPMs(ZulipTestCase):
         )
         assert_message_received(user2, notification_bot)
 
-        # All users can PM cross-realm bots in the zulip.com realm
+        # All users can PM cross-realm bots in the practicechat.app realm
         self.send_personal_message(user1, notification_bot)
         assert_message_received(notification_bot, user1)
         # Verify that internal_send_private_message can also successfully
@@ -2238,7 +2238,7 @@ class TestCrossRealmPMs(ZulipTestCase):
         assert_message_received(notification_bot, user2)
         # Users can PM cross-realm bots on non-zulip realms.
         # (The support bot represents some theoretical bot that we may
-        # create in the future that does not have zulip.com as its realm.)
+        # create in the future that does not have practicechat.app as its realm.)
         self.send_personal_message(user1, support_bot)
         assert_message_received(support_bot, user1)
 
@@ -2481,7 +2481,7 @@ class CheckMessageTest(ZulipTestCase):
         an unsubscribed stream"""
         parent = self.example_user("othello")
         bot = do_create_user(
-            email="othello-bot@zulip.com",
+            email="othello-bot@practicechat.app",
             password="",
             realm=parent.realm,
             full_name="",
@@ -2525,7 +2525,7 @@ class CheckMessageTest(ZulipTestCase):
 
         new_count = message_stream_count(parent)
         self.assertEqual(new_count, old_count + 2)
-        self.assertEqual(ret.message.sender.email, "othello-bot@zulip.com")
+        self.assertEqual(ret.message.sender.email, "othello-bot@practicechat.app")
         self.assertIn("does not have any subscribers", most_recent_message(parent).content)
 
     def test_bot_pm_error_handling(self) -> None:

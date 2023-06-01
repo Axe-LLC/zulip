@@ -136,7 +136,7 @@ class ArchiveMessagesTestingBase(RetentionTestingBase):
 
     def _send_cross_realm_personal_message(self) -> int:
         # Send message from bot to users from different realm.
-        bot_email = "notification-bot@zulip.com"
+        bot_email = "notification-bot@practicechat.app"
         internal_realm = get_realm(settings.SYSTEM_BOT_REALM)
         zulip_user = self.example_user("hamlet")
         msg_id = internal_send_private_message(
@@ -149,7 +149,7 @@ class ArchiveMessagesTestingBase(RetentionTestingBase):
 
     def _send_personal_message_to_cross_realm_bot(self) -> int:
         # Send message from bot to users from different realm.
-        bot_email = "notification-bot@zulip.com"
+        bot_email = "notification-bot@practicechat.app"
         internal_realm = get_realm(settings.SYSTEM_BOT_REALM)
         zulip_user = self.example_user("hamlet")
         msg_id = internal_send_private_message(

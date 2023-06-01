@@ -804,7 +804,7 @@ class NormalActionsTest(BaseAction):
         events = self.verify_action(
             lambda: do_invite_users(
                 self.user_profile,
-                ["foo@zulip.com"],
+                ["foo@practicechat.app"],
                 streams,
                 invite_expires_in_minutes=invite_expires_in_minutes,
             ),
@@ -836,7 +836,7 @@ class NormalActionsTest(BaseAction):
         invite_expires_in_minutes = 2 * 24 * 60
         do_invite_users(
             user_profile,
-            ["foo@zulip.com"],
+            ["foo@practicechat.app"],
             [],
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
@@ -857,7 +857,7 @@ class NormalActionsTest(BaseAction):
         invite_expires_in_minutes = 2 * 24 * 60
         do_invite_users(
             self.user_profile,
-            ["foo@zulip.com"],
+            ["foo@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
@@ -902,15 +902,15 @@ class NormalActionsTest(BaseAction):
         invite_expires_in_minutes = 2 * 24 * 60
         do_invite_users(
             self.user_profile,
-            ["foo@zulip.com"],
+            ["foo@practicechat.app"],
             streams,
             invite_expires_in_minutes=invite_expires_in_minutes,
         )
-        prereg_user = PreregistrationUser.objects.get(email="foo@zulip.com")
+        prereg_user = PreregistrationUser.objects.get(email="foo@practicechat.app")
 
         events = self.verify_action(
             lambda: do_create_user(
-                "foo@zulip.com",
+                "foo@practicechat.app",
                 "password",
                 self.user_profile.realm,
                 "full name",
@@ -1166,12 +1166,12 @@ class NormalActionsTest(BaseAction):
         )
 
     def test_register_events(self) -> None:
-        events = self.verify_action(lambda: self.register("test1@zulip.com", "test1"), num_events=5)
+        events = self.verify_action(lambda: self.register("test1@practicechat.app", "test1"), num_events=5)
         self.assert_length(events, 5)
 
         check_realm_user_add("events[1]", events[1])
-        new_user_profile = get_user_by_delivery_email("test1@zulip.com", self.user_profile.realm)
-        self.assertEqual(new_user_profile.delivery_email, "test1@zulip.com")
+        new_user_profile = get_user_by_delivery_email("test1@practicechat.app", self.user_profile.realm)
+        self.assertEqual(new_user_profile.delivery_email, "test1@practicechat.app")
 
         check_subscription_peer_add("events[4]", events[4])
 
@@ -1193,10 +1193,10 @@ class NormalActionsTest(BaseAction):
             acting_user=None,
         )
 
-        events = self.verify_action(lambda: self.register("test1@zulip.com", "test1"), num_events=5)
+        events = self.verify_action(lambda: self.register("test1@practicechat.app", "test1"), num_events=5)
         self.assert_length(events, 5)
         check_realm_user_add("events[1]", events[1])
-        new_user_profile = get_user_by_delivery_email("test1@zulip.com", self.user_profile.realm)
+        new_user_profile = get_user_by_delivery_email("test1@practicechat.app", self.user_profile.realm)
         self.assertEqual(new_user_profile.email, f"user{new_user_profile.id}@zulip.testserver")
 
         check_subscription_peer_add("events[4]", events[4])
@@ -1583,7 +1583,7 @@ class NormalActionsTest(BaseAction):
         # we don't have a stale UserProfile object with an old value
         # for email being passed into this next function.
         self.user_profile.refresh_from_db()
-        action = lambda: do_change_user_delivery_email(self.user_profile, "newhamlet@zulip.com")
+        action = lambda: do_change_user_delivery_email(self.user_profile, "newhamlet@practicechat.app")
         events = self.verify_action(action, num_events=2, client_gravatar=False)
 
         check_realm_user_update("events[0]", events[0], "delivery_email")
@@ -1602,7 +1602,7 @@ class NormalActionsTest(BaseAction):
         # we don't have a stale UserProfile object with an old value
         # for email being passed into this next function.
         self.user_profile.refresh_from_db()
-        action = lambda: do_change_user_delivery_email(self.user_profile, "newhamlet@zulip.com")
+        action = lambda: do_change_user_delivery_email(self.user_profile, "newhamlet@practicechat.app")
         events = self.verify_action(action, num_events=3, client_gravatar=False)
 
         check_realm_user_update("events[0]", events[0], "delivery_email")
@@ -2382,7 +2382,7 @@ class NormalActionsTest(BaseAction):
             check_message("events[2]", events[2])
 
             fields = dict(
-                sender_email="notification-bot@zulip.com",
+                sender_email="notification-bot@practicechat.app",
                 display_recipient=new_name,
                 sender_full_name="Notification Bot",
                 is_me_message=False,

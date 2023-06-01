@@ -1186,7 +1186,7 @@ class BotTest(ZulipTestCase, UploadSerializeMixin):
     def test_patch_bot_role(self) -> None:
         self.login("desdemona")
 
-        email = "default-bot@zulip.com"
+        email = "default-bot@practicechat.app"
         user_profile = self.get_bot_user(email)
 
         do_change_user_role(user_profile, UserProfile.ROLE_MEMBER, acting_user=user_profile)
@@ -1704,13 +1704,13 @@ class BotTest(ZulipTestCase, UploadSerializeMixin):
         self.assert_json_error(result, "Invalid configuration data!")
 
     def test_is_cross_realm_bot_email(self) -> None:
-        self.assertTrue(is_cross_realm_bot_email("notification-bot@zulip.com"))
-        self.assertTrue(is_cross_realm_bot_email("notification-BOT@zulip.com"))
-        self.assertFalse(is_cross_realm_bot_email("random-bot@zulip.com"))
+        self.assertTrue(is_cross_realm_bot_email("notification-bot@practicechat.app"))
+        self.assertTrue(is_cross_realm_bot_email("notification-BOT@practicechat.app"))
+        self.assertFalse(is_cross_realm_bot_email("random-bot@practicechat.app"))
 
-        with self.settings(CROSS_REALM_BOT_EMAILS={"random-bot@zulip.com"}):
-            self.assertTrue(is_cross_realm_bot_email("random-bot@zulip.com"))
-            self.assertFalse(is_cross_realm_bot_email("notification-bot@zulip.com"))
+        with self.settings(CROSS_REALM_BOT_EMAILS={"random-bot@practicechat.app"}):
+            self.assertTrue(is_cross_realm_bot_email("random-bot@practicechat.app"))
+            self.assertFalse(is_cross_realm_bot_email("notification-bot@practicechat.app"))
 
     @patch("zerver.lib.integrations.WEBHOOK_INTEGRATIONS", stripe_sample_config_options)
     def test_create_incoming_webhook_bot_with_service_name_and_with_keys(self) -> None:
